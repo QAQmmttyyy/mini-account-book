@@ -1,7 +1,7 @@
 import { rest } from "msw";
 import { BASE_URL } from "../constants";
-import { getBillFilterPredicate } from "../helpers";
-import { Bill, BillRequestParams } from "../types";
+import { collectBillYear, getBillFilterPredicate } from "../helpers";
+import { Bill, BillCategory, BillRequestParams } from "../types";
 import { db } from "./db";
 
 export const handlers = [
@@ -13,14 +13,6 @@ export const handlers = [
   // Read bill.
   rest.get<undefined, Bill[]>(`${BASE_URL}/bill`, (req, res, ctx) => {
     const bills = db.get("bills") as Bill[];
-    console.log(
-      bills.map((bill) =>
-        Object.assign(bill, {
-          year: new Date(bill.time).getFullYear(),
-          month: new Date(bill.time).getMonth() + 1,
-        })
-      )
-    );
     const searchParams = req.url.searchParams;
     const hasGoodSearchParams =
       searchParams.get("year") &&
@@ -40,5 +32,21 @@ export const handlers = [
     };
     const predicate = getBillFilterPredicate(billRequestParams);
     return res(ctx.json(bills.filter(predicate)));
+  }),
+
+  // Read bill category
+  rest.get<undefined, BillCategory[]>(
+    `${BASE_URL}/billCategory`,
+    (req, res, ctx) => {
+      const billCategories = db.get("categories") as BillCategory[];
+      return res(ctx.json(billCategories));
+    }
+  ),
+
+  // Read bill year
+  rest.get<undefined, number[]>(`${BASE_URL}/billYear`, (req, res, ctx) => {
+    const bills = db.get("bills") as Bill[];
+    const billYears = collectBillYear(bills);
+    return res(ctx.json(billYears));
   }),
 ];

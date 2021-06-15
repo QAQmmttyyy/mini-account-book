@@ -1,5 +1,6 @@
-import { createBill, readBill } from "../api";
-import { getBillFilterPredicate } from "../helpers";
+import { db } from "../apiMocks/db";
+import { createBill, readBill, readBillCategory, readBillYear } from "../api";
+import { collectBillYear, getBillFilterPredicate } from "../helpers";
 import { Bill, BillRequestParams } from "../types";
 
 describe("api", () => {
@@ -26,5 +27,18 @@ describe("api", () => {
     expect(resData).not.toEqual([]);
     expect(resData.filter(predicate)).toEqual(resData);
     expect(resData.filter((bill) => !predicate(bill))).toEqual([]);
+  });
+
+  test("readBillCategory", async () => {
+    const resData = await readBillCategory();
+    const billCategories = db.get("categories");
+    expect(resData).toEqual(billCategories);
+  });
+
+  test("readBillYear", async () => {
+    const resData = await readBillYear();
+    const bills = db.get("bills") as Bill[];
+    const billYears = collectBillYear(bills);
+    expect(resData).toEqual(billYears);
   });
 });

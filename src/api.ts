@@ -1,4 +1,4 @@
-import { Bill } from "./types";
+import { Bill, BillCategory } from "./types";
 import { BASE_URL } from "./constants";
 
 export async function createBill(data: Bill): Promise<Bill> {
@@ -21,6 +21,18 @@ export async function readBill(queryString: string): Promise<Bill[]> {
   return res.json();
 }
 
-// export function readBillCategory() {}
+export async function readBillCategory(): Promise<BillCategory[]> {
+  const res = await fetch(`${BASE_URL}/billCategory`, {
+    method: "GET",
+  });
 
-// export function readBillYear() {}
+  return res.json();
+}
+
+export async function readBillYear(): Promise<number[]> {
+  const res = await fetch(`${BASE_URL}/billYear`, {
+    method: "GET",
+  });
+
+  return res.json();
+}

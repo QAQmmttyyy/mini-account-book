@@ -29,3 +29,12 @@ export function getBillFilterPredicate(billRequestParams: BillRequestParams) {
     );
   };
 }
+
+export function collectBillYear(bills: Bill[]) {
+  return Array.from(
+    bills.reduce(
+      (acc, bill) => acc.add(new Date(bill.time).getFullYear()),
+      new Set<number>()
+    )
+  );
+}
