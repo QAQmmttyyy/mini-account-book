@@ -7,6 +7,7 @@ import { db } from "./db";
 export const handlers = [
   // Create bill.
   rest.post<Bill, Bill>(`${BASE_URL}/bill`, (req, res, ctx) => {
+    (db.get("bills") as Bill[]).push(req.body);
     return res(ctx.json(req.body));
   }),
 
