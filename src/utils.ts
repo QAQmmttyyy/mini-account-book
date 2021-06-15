@@ -13,7 +13,7 @@ function getDynamicTypeValue(originalValue: string): string | number | boolean {
 }
 
 export function csvToArray<T = any>(csvContent: string): T[] {
-  const lines = csvContent.split(/\n/);
+  const lines = csvContent.split(/\r?\n/);
   const headline = lines[0];
   const fieldNames = headline.split(",");
   const result = [] as T[];
