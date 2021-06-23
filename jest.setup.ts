@@ -1,4 +1,5 @@
-import "cross-fetch/polyfill";
+import "whatwg-fetch";
+import "@testing-library/jest-dom";
 import { server } from "./src/apiMocks/server";
 
 beforeAll(() => {
