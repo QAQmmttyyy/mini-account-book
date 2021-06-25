@@ -1,4 +1,5 @@
-import { BillRequestParams, Bill, ExtraCategoryValue } from "./types";
+import { BillRequestParams, Bill } from "./types";
+import { ExtraCategoryValue } from "./constants";
 
 function predicateYear(received: number, expected: string) {
   return received === +expected;

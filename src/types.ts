@@ -18,12 +18,8 @@ export interface BillRequestParams extends Record<string, string> {
   category: string;
 }
 
-export enum ExtraCategoryValue {
-  ALL = "All", // 所有类别
-  NONE = "None", // 未分类
-}
 
 export interface OptionDataItem {
-  description: string;
+  description: string | number;
   value: string | number;
 }
