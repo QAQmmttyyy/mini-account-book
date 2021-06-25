@@ -35,8 +35,11 @@ test("renders with options", () => {
   for (let index = 0; index < optionElements.length; index++) {
     const optionElement = optionElements[index];
     const optionData = optionsData[index];
-    expect(optionElement).toHaveTextContent(optionData.description);
-    expect(optionElement).toHaveAttribute("data-value", `${optionData.value}`);
+    expect(optionElement).toHaveTextContent(optionData.description as string);
+    expect(optionElement).toHaveAttribute(
+      "data-value",
+      optionData.value as string
+    );
   }
 });
 

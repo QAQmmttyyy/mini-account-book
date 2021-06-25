@@ -1,15 +1,20 @@
 import React from "react";
 import { MenuItem, Select, SelectProps } from "@material-ui/core";
 import { OptionDataItem } from "../types";
+import { EMPTY_STRING } from "../constants";
 
-interface Props extends Omit<SelectProps, "native"> {
+export interface FilterSelectProps extends Omit<SelectProps, "native"> {
   optionsData?: OptionDataItem[];
 }
 
-function FilterSelect({ placeholder, optionsData = [], ...restProps }: Props) {
+function FilterSelect({
+  placeholder,
+  optionsData = [],
+  ...restProps
+}: FilterSelectProps) {
   const hasPlaceholder = !!placeholder;
   const placeholderItem = hasPlaceholder && (
-    <MenuItem value="" disabled>
+    <MenuItem value={EMPTY_STRING} disabled>
       {placeholder}
     </MenuItem>
   );
