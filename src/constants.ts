@@ -10,6 +10,10 @@ export const MONTHS = (() => {
   return months;
 })();
 
+export const CNY_SYMBOL = "￥";
+export const INCOME_TEXT = "收入";
+export const EXPENDITURE_TEXT = "支出";
+
 export enum ExtraCategoryValue {
   ALL = "All", // 所有类别
   NONE = "None", // 未分类
@@ -18,4 +22,10 @@ export enum ExtraCategoryValue {
 export enum ExtraCategoryName {
   ALL = "全部分类",
   NONE = "未分类",
+}
+
+export enum BillSearchParamsKey {
+  YEAR = 'year',
+  MONTH = 'month',
+  CATEGORY = 'category'
 }
