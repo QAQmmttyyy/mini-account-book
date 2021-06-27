@@ -1,19 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import FilterSelect, { FilterSelectProps } from "../components/FilterSelect";
 import { useApiStore } from "../store/api.store";
-import { EMPTY_STRING } from "../constants";
+import { BillSearchParamsKey, EMPTY_STRING } from "../constants";
 import { OptionDataItem } from "../types";
+import { useUrlSearchParamsStore } from "../store/urlSearchParams.store";
 
 interface Props {}
 
-type ValueType = typeof EMPTY_STRING | number;
-
 function YearFilterSelect(props: Props) {
   // 1. value
-  const [value, setValue] = useState<ValueType>(EMPTY_STRING);
+  const value =
+    useUrlSearchParamsStore((state) =>
+      state.urlSearchParams.get(BillSearchParamsKey.YEAR)
+    ) ?? EMPTY_STRING;
+
+  const updateUrlSearchParams = useUrlSearchParamsStore(
+    (state) => state.updateUrlSearchParams
+  );
+
+  const setValue = updateUrlSearchParams.bind(null, BillSearchParamsKey.YEAR);
 
   const handleValueChange: FilterSelectProps["onChange"] = (event) => {
-    setValue(event.target.value as number);
+    setValue(event.target.value);
   };
 
   // 2. options data
@@ -35,13 +43,14 @@ function YearFilterSelect(props: Props) {
     // set default select option.
     if (value === EMPTY_STRING && years.length) {
       const firstOption = optionsData[0];
-      setValue(firstOption.value as number);
+      setValue(firstOption.value);
     }
   }, [years]);
 
   return (
     <FilterSelect
       placeholder="年"
+      name={BillSearchParamsKey.YEAR}
       value={value}
       optionsData={optionsData}
       onChange={handleValueChange}

@@ -1,7 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import FilterSelect, { FilterSelectProps } from "../components/FilterSelect";
-import { ExtraCategoryValue } from "../constants";
+import {
+  BillSearchParamsKey,
+  EMPTY_STRING,
+  ExtraCategoryValue,
+} from "../constants";
 import { useApiStore } from "../store/api.store";
+import { useUrlSearchParamsStore } from "../store/urlSearchParams.store";
 import { OptionDataItem } from "../types";
 
 interface Props {}
@@ -13,10 +18,22 @@ const localExtraCategoryOptionsData: OptionDataItem[] = [
 
 function CategoryFilterSelect(props: Props) {
   // 1. value
-  const [value, setValue] = useState<string>(ExtraCategoryValue.ALL);
+  const value =
+    useUrlSearchParamsStore((state) =>
+      state.urlSearchParams.get(BillSearchParamsKey.CATEGORY)
+    ) ?? EMPTY_STRING;
+
+  const updateUrlSearchParams = useUrlSearchParamsStore(
+    (state) => state.updateUrlSearchParams
+  );
+
+  const setValue = updateUrlSearchParams.bind(
+    null,
+    BillSearchParamsKey.CATEGORY
+  );
 
   const handleValueChange: FilterSelectProps["onChange"] = (event) => {
-    setValue(event.target.value as string);
+    setValue(event.target.value);
   };
 
   // 2. options data
@@ -36,8 +53,17 @@ function CategoryFilterSelect(props: Props) {
     setCategories();
   }, []);
 
+  useEffect(() => {
+    // set default select option.
+    if (value === EMPTY_STRING) {
+      const firstOption = optionsData[0];
+      setValue(firstOption.value);
+    }
+  }, []);
+
   return (
     <FilterSelect
+      name={BillSearchParamsKey.CATEGORY}
       value={value}
       optionsData={optionsData}
       onChange={handleValueChange}
