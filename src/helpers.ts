@@ -39,3 +39,20 @@ export function collectBillYear(bills: Bill[]) {
     )
   );
 }
+
+export function getCategoryExpenditureStatistics(bills: Bill[]) {
+  const categoryToAmountMap = new Map<string | undefined, number>();
+
+  for (let index = 0; index < bills.length; index++) {
+    const { type, category, amount } = bills[index];
+    if (type === 1) {
+      continue;
+    }
+    categoryToAmountMap.set(
+      category,
+      (categoryToAmountMap.get(category) ?? 0) + amount
+    );
+  }
+
+  return categoryToAmountMap.entries();
+}

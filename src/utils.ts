@@ -31,3 +31,7 @@ export function csvToArray<T = any>(csvContent: string): T[] {
 
   return result;
 }
+
+export function isInvalidDate(date: Date) {
+  return date.toString() === "Invalid Date";
+}
