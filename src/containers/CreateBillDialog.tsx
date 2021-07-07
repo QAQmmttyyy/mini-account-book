@@ -1,9 +1,11 @@
 import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
 import { useBillFormStore } from "../store/billForm.store";
 import { Bill } from "../types";
 import { createBill } from "../api";
@@ -18,7 +20,18 @@ interface CreateBillDialogProps {
   onClose: () => void;
 }
 
+const useStyles = makeStyles({
+  scrollPaper: {
+    alignItems: "flex-start",
+  },
+  dialogContentRoot: {
+    width: 448,
+  },
+});
+
 function CreateBillDialog({ open, onClose }: CreateBillDialogProps) {
+  const classes = useStyles();
+
   const handleExited = () => {
     useBillFormStore.getState().reset();
   };
@@ -47,6 +60,9 @@ function CreateBillDialog({ open, onClose }: CreateBillDialogProps) {
 
   return (
     <Dialog
+      classes={{
+        scrollPaper: classes.scrollPaper,
+      }}
       open={open}
       onClose={onClose}
       onExited={handleExited}
@@ -55,15 +71,30 @@ function CreateBillDialog({ open, onClose }: CreateBillDialogProps) {
       <DialogTitle id="create-bill-dialog-title">
         {CREATE_BILL_TEXT}
       </DialogTitle>
-      <DialogContent>
-        {<TimeField />}
-        {<CategoryField />}
-        {<TypeField />}
-        {<AmountField />}
+      <DialogContent className={classes.dialogContentRoot}>
+        <Grid container direction="column" spacing={2}>
+          <Grid item>
+            <TypeField />
+          </Grid>
+          <Grid item>
+            <TimeField />
+          </Grid>
+          <Grid item>
+            <CategoryField />
+          </Grid>
+          <Grid item>
+            <AmountField />
+          </Grid>
+        </Grid>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>{CANCEL_TEXT}</Button>
-        <Button onClick={handleOk} color="primary">
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={handleOk}
+          disableElevation
+        >
           {CONFIRM_TEXT}
         </Button>
       </DialogActions>
