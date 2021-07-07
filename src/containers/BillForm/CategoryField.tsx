@@ -36,6 +36,12 @@ function CategoryField(props: Props) {
       name="category"
       value={value}
       onChange={handleChange}
+      InputLabelProps={{
+        shrink: true,
+      }}
+      SelectProps={{
+        displayEmpty: true,
+      }}
       select
     >
       {optionsData.map(({ value, description }) => (

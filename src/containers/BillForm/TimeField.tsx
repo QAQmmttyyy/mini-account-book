@@ -52,6 +52,7 @@ function TimeField(props: Props) {
     <MuiPickersUtilsProvider utils={DateFnsUtils} locale={zhCN}>
       <KeyboardDatePicker
         id="date-picker"
+        variant="inline"
         format="yyyy/MM/dd"
         label={TIME_TEXT}
         name="time"
@@ -63,8 +64,11 @@ function TimeField(props: Props) {
         KeyboardButtonProps={{
           "aria-label": CHOOSE_TIME_TEXT,
         }}
+        InputLabelProps={{
+          shrink: true,
+        }}
+        disableToolbar
         autoOk
-        // required
       />
     </MuiPickersUtilsProvider>
   );

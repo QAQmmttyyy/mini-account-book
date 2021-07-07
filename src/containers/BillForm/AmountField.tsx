@@ -31,6 +31,7 @@ function AmountField(props: Props) {
     <TextField
       id="amount-input"
       label={AMOUNT_TEXT}
+      placeholder="--"
       name="amount"
       value={value}
       helperText={error}
@@ -39,6 +40,9 @@ function AmountField(props: Props) {
       onBlur={handleBlur}
       InputProps={{
         inputComponent: CNYAmountInput as any,
+      }}
+      InputLabelProps={{
+        shrink: true,
       }}
     />
   );

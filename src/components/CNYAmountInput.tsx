@@ -28,7 +28,7 @@ function CNYAmountInput(props: CNYAmountInputProps) {
       thousandsGroupStyle="wan"
       onValueChange={handleValueChange}
       isNumericString
-      thousandSeparator
+      thousandSeparator=", "
     />
   );
 }

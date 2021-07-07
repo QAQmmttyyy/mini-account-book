@@ -3,8 +3,7 @@ import Radio from "@material-ui/core/Radio";
 import RadioGroup, { RadioGroupProps } from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
-import { EXPENDITURE_TEXT, INCOME_TEXT, TYPE_TEXT } from "../../constants";
+import { EXPENDITURE_TEXT, INCOME_TEXT } from "../../constants";
 import { useBillFormStore } from "../../store/billForm.store";
 
 interface Props {}
@@ -18,18 +17,17 @@ function TypeField(props: Props) {
   };
 
   return (
-    <FormControl component="fieldset">
-      <FormLabel component="legend">{TYPE_TEXT}</FormLabel>
-      <RadioGroup name="type" value={value} onChange={handleChange}>
+    <FormControl>
+      <RadioGroup name="type" value={value} onChange={handleChange} row>
         <FormControlLabel
           value={0 as typeof value}
           label={EXPENDITURE_TEXT}
-          control={<Radio />}
+          control={<Radio size="small" color="primary" />}
         />
         <FormControlLabel
           value={1 as typeof value}
           label={INCOME_TEXT}
-          control={<Radio />}
+          control={<Radio size="small" color="primary" />}
         />
       </RadioGroup>
     </FormControl>

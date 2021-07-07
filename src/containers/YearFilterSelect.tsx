@@ -32,7 +32,7 @@ function YearFilterSelect(props: Props) {
 
   const optionsData: OptionDataItem[] = years
     .sort((a, b) => b - a)
-    .map((year) => ({ description: year, value: year }));
+    .map((year) => ({ description: year + " 年", value: year }));
 
   useEffect(() => {
     setYears();
@@ -49,7 +49,6 @@ function YearFilterSelect(props: Props) {
 
   return (
     <FilterSelect
-      placeholder="年"
       name={BillSearchParamsKey.YEAR}
       value={value}
       optionsData={optionsData}

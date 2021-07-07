@@ -25,7 +25,7 @@ function MonthFilterSelect({}: Props) {
 
   // 2. options data
   const optionsData: OptionDataItem[] = MONTHS.map((month) => ({
-    description: month,
+    description: month + " 月",
     value: month,
   }));
 
@@ -39,7 +39,6 @@ function MonthFilterSelect({}: Props) {
 
   return (
     <FilterSelect
-      placeholder="月"
       name={BillSearchParamsKey.MONTH}
       value={value}
       optionsData={optionsData}
