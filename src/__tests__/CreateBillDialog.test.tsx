@@ -28,12 +28,13 @@ const DialogControl = () => {
 
 test("normal process", async () => {
   render(<DialogControl />);
+
   userEvent.click(screen.getByLabelText(CHOOSE_TIME_TEXT));
   userEvent.click(screen.getByText("8"));
   userEvent.click(screen.getByLabelText(new RegExp(CATEGORY_TEXT)));
   userEvent.click(screen.getAllByRole("option")[1]);
   userEvent.click(screen.getByLabelText(new RegExp(INCOME_TEXT)));
-  userEvent.type(screen.getByLabelText(AMOUNT_TEXT), "99999.99");
+  userEvent.type(screen.getByLabelText(new RegExp(AMOUNT_TEXT)), "99999.99");
   userEvent.click(screen.getByText(CONFIRM_TEXT));
 
   await waitFor(() => {
@@ -47,7 +48,6 @@ test("improper process", async () => {
   render(<DialogControl />);
 
   userEvent.click(screen.getByText(CONFIRM_TEXT));
-
   await new Promise((resolve) => {
     setTimeout(resolve, 1000);
   });
