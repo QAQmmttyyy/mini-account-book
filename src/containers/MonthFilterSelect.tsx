@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 import FilterSelect, { FilterSelectProps } from "../components/FilterSelect";
-import { BillSearchParamsKey, EMPTY_STRING, MONTHS } from "../constants";
-import { useUrlSearchParamsStore } from "../store/urlSearchParams.store";
+import { EMPTY_STRING, MONTHS } from "../constants";
+import {
+  BillSearchParamsKey,
+  useUrlSearchParamsStore,
+} from "../store/urlSearchParams.store";
 import { OptionDataItem } from "../types";
 
-interface Props {}
-
-function MonthFilterSelect({}: Props) {
+function MonthFilterSelect() {
   // 1. value
   const value =
     useUrlSearchParamsStore((state) =>

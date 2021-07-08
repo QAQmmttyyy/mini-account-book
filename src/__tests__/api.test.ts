@@ -1,7 +1,7 @@
 import { db } from "../apiMocks/db";
 import { createBill, readBill, readBillCategory, readBillYear } from "../api";
 import { collectBillYear, getBillFilterPredicate } from "../helpers";
-import { Bill, BillRequestParams } from "../types";
+import { Bill, BillSearchParams } from "../types";
 
 test("createBill", async () => {
   const postData: Bill = {
@@ -17,7 +17,7 @@ test("createBill", async () => {
 });
 
 test("readBill", async () => {
-  const params: BillRequestParams = {
+  const params: BillSearchParams = {
     year: "2019",
     month: "7",
     category: "8s0p77c323",

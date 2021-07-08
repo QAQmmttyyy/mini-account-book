@@ -1,22 +1,19 @@
 import React, { useEffect } from "react";
 import FilterSelect, { FilterSelectProps } from "../components/FilterSelect";
+import { EMPTY_STRING, ExtraCategoryValue } from "../constants";
+import { useApiStore } from "../store/api.store";
 import {
   BillSearchParamsKey,
-  EMPTY_STRING,
-  ExtraCategoryValue,
-} from "../constants";
-import { useApiStore } from "../store/api.store";
-import { useUrlSearchParamsStore } from "../store/urlSearchParams.store";
+  useUrlSearchParamsStore,
+} from "../store/urlSearchParams.store";
 import { OptionDataItem } from "../types";
-
-interface Props {}
 
 const localExtraCategoryOptionsData: OptionDataItem[] = [
   { value: ExtraCategoryValue.ALL, description: "全部分类" },
   { value: ExtraCategoryValue.NONE, description: "未分类" },
 ];
 
-function CategoryFilterSelect(props: Props) {
+function CategoryFilterSelect() {
   // 1. value
   const value =
     useUrlSearchParamsStore((state) =>
