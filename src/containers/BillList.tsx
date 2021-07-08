@@ -1,31 +1,52 @@
 import React, { useEffect } from "react";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import { useApiStore } from "../store/api.store";
 import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
+import { useApiStore } from "../store/api.store";
 import {
-  BillSearchParamsKey,
   CNY_SYMBOL,
   EXPENDITURE_TEXT,
   ExtraCategoryName,
+  ExtraCategoryValue,
   INCOME_TEXT,
 } from "../constants";
-import { useUrlSearchParamsStore } from "../store/urlSearchParams.store";
+import {
+  BillSearchParamsKey,
+  useUrlSearchParamsStore,
+} from "../store/urlSearchParams.store";
+import Placeholder from "../components/Placeholder";
 
-interface Props {}
+function BillList() {
+  const urlSearchParams = useUrlSearchParamsStore(
+    (state) => state.urlSearchParams
+  );
+  const paramYear = urlSearchParams.get(BillSearchParamsKey.YEAR);
+  const paramMonth = urlSearchParams.get(BillSearchParamsKey.MONTH);
+  const bill = useApiStore((state) => state.bill);
+  const setBills = useApiStore((state) => state.setBills);
+  useEffect(() => {
+    if (paramYear && paramMonth) {
+      setBills(
+        new URLSearchParams({ year: paramYear, month: paramMonth }).toString()
+      );
+    }
+  }, [paramYear, paramMonth, bill]);
 
-function BillList(props: Props) {
   const billCategories = useApiStore((state) => state.billCategories);
-
   const categoryIdToNameMap = billCategories.reduce(
     (prevMap, category) => prevMap.set(category.id, category.name),
     new Map<string, string>()
   );
-
   const bills = useApiStore((state) => state.bills);
-
-  const billListItems = bills.map((bill, index) => {
+  const paramCategory = urlSearchParams.get(BillSearchParamsKey.CATEGORY);
+  const filteredBills =
+    paramCategory === ExtraCategoryValue.ALL
+      ? bills
+      : bills.filter(
+          ({ category = ExtraCategoryValue.NONE }) => category === paramCategory
+        );
+  const billListItems = filteredBills.map((bill, index) => {
     const { time, type, amount, category = "" } = bill;
     return (
       <ListItem key={index}>
@@ -43,18 +64,11 @@ function BillList(props: Props) {
     );
   });
 
-  const setBills = useApiStore((state) => state.setBills);
-  const urlSearchParams = useUrlSearchParamsStore(
-    (state) => state.urlSearchParams
+  return billListItems.length ? (
+    <List>{billListItems}</List>
+  ) : (
+    <Placeholder>暂无数据</Placeholder>
   );
-
-  useEffect(() => {
-    if (urlSearchParams.get(BillSearchParamsKey.YEAR)) {
-      setBills(urlSearchParams.toString());
-    }
-  }, [urlSearchParams]);
-
-  return <List>{billListItems}</List>;
 }
 
 export default BillList;

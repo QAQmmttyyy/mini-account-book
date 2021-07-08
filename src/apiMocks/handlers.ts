@@ -1,7 +1,7 @@
 import { rest } from "msw";
 import { BASE_URL } from "../constants";
 import { collectBillYear, getBillFilterPredicate } from "../helpers";
-import { Bill, BillCategory, BillRequestParams } from "../types";
+import { Bill, BillCategory, BillSearchParams } from "../types";
 import { db } from "./db";
 
 export const handlers = [
@@ -16,9 +16,7 @@ export const handlers = [
     const bills = db.get("bills") as Bill[];
     const searchParams = req.url.searchParams;
     const hasGoodSearchParams =
-      searchParams.get("year") &&
-      searchParams.get("month") &&
-      searchParams.get("category");
+      searchParams.get("year") && searchParams.get("month");
 
     // 400
     if (!hasGoodSearchParams) {
@@ -26,10 +24,9 @@ export const handlers = [
     }
 
     // 200
-    const billRequestParams: BillRequestParams = {
+    const billRequestParams: BillSearchParams = {
       year: searchParams.get("year")!,
       month: searchParams.get("month")!,
-      category: searchParams.get("category")!,
     };
     const predicate = getBillFilterPredicate(billRequestParams);
     return res(ctx.json(bills.filter(predicate)));

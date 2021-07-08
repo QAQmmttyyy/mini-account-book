@@ -6,14 +6,14 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import { useBillFormStore } from "../store/billForm.store";
-import { Bill } from "../types";
-import { createBill } from "../api";
 import AmountField from "./BillForm/AmountField";
 import CategoryField from "./BillForm/CategoryField";
 import TimeField from "./BillForm/TimeField";
 import TypeField from "./BillForm/TypeField";
+import { useBillFormStore } from "../store/billForm.store";
+import { useApiStore } from "../store/api.store";
 import { CANCEL_TEXT, CONFIRM_TEXT, CREATE_BILL_TEXT } from "../constants";
+import { Bill } from "../types";
 
 interface CreateBillDialogProps {
   open: boolean;
@@ -51,9 +51,8 @@ function CreateBillDialog({ open, onClose }: CreateBillDialogProps) {
       amount: Number(fields.amount),
     };
 
-    await createBill(data);
-
     // TODO: Set "addedFlag"
+    await useApiStore.getState().createBill(data);
 
     onClose();
   };

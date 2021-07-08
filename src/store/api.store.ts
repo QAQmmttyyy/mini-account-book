@@ -1,11 +1,13 @@
 import create from "zustand";
-import { readBill, readBillCategory, readBillYear } from "../api";
+import { createBill, readBill, readBillCategory, readBillYear } from "../api";
 import { Bill, BillCategory } from "../types";
 
 export interface ApiState {
+  bill?: Bill;
   bills: Bill[];
   billCategories: BillCategory[];
   billYears: number[];
+  createBill: (...args: Parameters<typeof createBill>) => Promise<void>;
   setBills: (...args: Parameters<typeof readBill>) => Promise<void>;
   setBillCategories: (
     ...args: Parameters<typeof readBillCategory>
@@ -18,6 +20,9 @@ export const useApiStore = create<ApiState>((set) => {
     bills: [],
     billCategories: [],
     billYears: [],
+    createBill: async (...args) => {
+      set({ bill: await createBill(...args) });
+    },
     setBills: async (...args) => {
       set({ bills: await readBill(...args) });
     },
