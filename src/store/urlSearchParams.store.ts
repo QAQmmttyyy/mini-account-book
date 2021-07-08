@@ -1,5 +1,11 @@
 import create, { StateCreator } from "zustand";
 
+export enum BillSearchParamsKey {
+  YEAR = "year",
+  MONTH = "month",
+  CATEGORY = "category",
+}
+
 interface UrlSearchParamsState {
   urlSearchParams: URLSearchParams;
   updateUrlSearchParams: (name: string, value: any) => void;
