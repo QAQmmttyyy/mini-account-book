@@ -12,8 +12,14 @@ import TimeField from "./BillForm/TimeField";
 import TypeField from "./BillForm/TypeField";
 import { useBillFormStore } from "../store/billForm.store";
 import { useApiStore } from "../store/api.store";
-import { CANCEL_TEXT, CONFIRM_TEXT, CREATE_BILL_TEXT } from "../constants";
+import {
+  CANCEL_TEXT,
+  CONFIRM_TEXT,
+  CREATE_BILL_TEXT,
+  NOT_EMPTY_TEXT,
+} from "../constants";
 import { Bill } from "../types";
+import { getInvalidRequiredFieldKey } from "../helpers";
 
 interface CreateBillDialogProps {
   open: boolean;
@@ -38,9 +44,20 @@ function CreateBillDialog({ open, onClose }: CreateBillDialogProps) {
   const handleOk = async () => {
     // Avoid subscribing, because there is no need to re-render this comp
     // when these states change. And the states will be guaranteed to be up to date.
-    const { errors, fields } = useBillFormStore.getState();
+    const { errors, fields, setError } = useBillFormStore.getState();
 
     if (Object.values(errors).some((error) => Boolean(error))) {
+      return;
+    }
+
+    // Handle case: directly click confirm button.
+    const keyOfInvalidField = getInvalidRequiredFieldKey(fields, [
+      "time",
+      "amount",
+      "type",
+    ] as (keyof typeof fields)[]);
+    if (keyOfInvalidField) {
+      setError(keyOfInvalidField as any, NOT_EMPTY_TEXT);
       return;
     }
 
@@ -50,8 +67,6 @@ function CreateBillDialog({ open, onClose }: CreateBillDialogProps) {
       type: fields.type,
       amount: Number(fields.amount),
     };
-
-    // TODO: Set "addedFlag"
     await useApiStore.getState().createBill(data);
 
     onClose();

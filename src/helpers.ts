@@ -48,3 +48,15 @@ export function getExpenditureStatisticsByCategory(bills: Bill[]) {
 
   return Array.from(amountStatisticMap.entries());
 }
+
+export function getInvalidRequiredFieldKey(
+  fields: Record<string, any>,
+  requiredKeys: string[]
+) {
+  for (const key of requiredKeys) {
+    const value = fields[key];
+    if (value === "" || value == undefined) {
+      return key;
+    }
+  }
+}

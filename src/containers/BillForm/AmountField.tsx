@@ -44,6 +44,7 @@ function AmountField(props: Props) {
       InputLabelProps={{
         shrink: true,
       }}
+      required
     />
   );
 }

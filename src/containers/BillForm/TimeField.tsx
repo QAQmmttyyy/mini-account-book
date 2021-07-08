@@ -69,6 +69,7 @@ function TimeField(props: Props) {
         }}
         disableToolbar
         autoOk
+        required
       />
     </MuiPickersUtilsProvider>
   );
