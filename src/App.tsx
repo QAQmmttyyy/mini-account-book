@@ -10,6 +10,7 @@ import Card from "@material-ui/core/Card";
 import Divider from "@material-ui/core/Divider";
 import BillList from "./containers/BillList";
 import BillAmountStatisticsInfo from "./containers/BillAmountStatisticsInfo";
+import CategoryExpenditureStatisticsGraph from "./containers/CategoryExpenditureStatisticsGraph";
 
 const useStyles = makeStyles({
   root: {
@@ -58,9 +59,11 @@ function App() {
             <Divider />
             <BillList />
           </Card>
-          {/* bill list */}
         </Grid>
         {/* right */}
+        <Grid item xs>
+          <CategoryExpenditureStatisticsGraph />
+        </Grid>
       </Grid>
     </div>
   );

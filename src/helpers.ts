@@ -1,5 +1,4 @@
-import { BillRequestParams, Bill } from "./types";
-import { ExtraCategoryValue } from "./constants";
+import { BillSearchParams, Bill } from "./types";
 
 function predicateYear(received: number, expected: string) {
   return received === +expected;
@@ -9,24 +8,13 @@ function predicateMonth(received: number, expected: string) {
   return received + 1 === +expected;
 }
 
-function predicateCategory(received: Bill["category"], expected: string) {
-  if (expected === ExtraCategoryValue.ALL) {
-    return true;
-  }
-  if (expected === ExtraCategoryValue.NONE) {
-    return received === undefined;
-  }
-  return received === expected;
-}
-
-export function getBillFilterPredicate(billRequestParams: BillRequestParams) {
+export function getBillFilterPredicate(billRequestParams: BillSearchParams) {
   return function (bill: Bill) {
-    const { year, month, category } = billRequestParams;
+    const { year, month } = billRequestParams;
     const billDate = new Date(bill.time);
     return (
       predicateYear(billDate.getFullYear(), year) &&
-      predicateMonth(billDate.getMonth(), month) &&
-      predicateCategory(bill.category, category)
+      predicateMonth(billDate.getMonth(), month)
     );
   };
 }
@@ -40,19 +28,23 @@ export function collectBillYear(bills: Bill[]) {
   );
 }
 
-export function getCategoryExpenditureStatistics(bills: Bill[]) {
-  const categoryToAmountMap = new Map<string | undefined, number>();
+export function getExpenditureStatisticsByCategory(bills: Bill[]) {
+  const amountStatisticMap = new Map<string, number>();
 
-  for (let index = 0; index < bills.length; index++) {
-    const { type, category, amount } = bills[index];
-    if (type === 1) {
-      continue;
+  bills.reduce((prev, bill) => {
+    const { type, category = "", amount } = bill;
+    switch (type) {
+      case 0:
+        return amountStatisticMap.set(
+          category,
+          (amountStatisticMap.get(category) ?? 0) + amount
+        );
+      case 1:
+        return prev;
+      default:
+        return prev;
     }
-    categoryToAmountMap.set(
-      category,
-      (categoryToAmountMap.get(category) ?? 0) + amount
-    );
-  }
+  }, amountStatisticMap);
 
-  return categoryToAmountMap.entries();
+  return Array.from(amountStatisticMap.entries());
 }
