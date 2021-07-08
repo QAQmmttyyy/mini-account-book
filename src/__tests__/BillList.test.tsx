@@ -5,13 +5,16 @@ import { server } from "../apiMocks/server";
 import { fakeIncomeBill, fakeIncomeCategory } from "../apiMocks/fakeData";
 import {
   BASE_URL,
-  BillSearchParamsKey,
   CNY_SYMBOL,
+  ExtraCategoryValue,
   INCOME_TEXT,
 } from "../constants";
 import { Bill } from "../types";
 import { useApiStore } from "../store/api.store";
-import { useUrlSearchParamsStore } from "../store/urlSearchParams.store";
+import {
+  BillSearchParamsKey,
+  useUrlSearchParamsStore,
+} from "../store/urlSearchParams.store";
 import BillList from "../containers/BillList";
 
 describe("<BillList />", () => {
@@ -42,27 +45,39 @@ describe("<BillList />", () => {
     expect(screen.queryByRole("listitem")).not.toBeInTheDocument();
 
     act(() => {
-      // "year="
+      // "year=&month="
       useUrlSearchParamsStore.setState({
-        urlSearchParams: new URLSearchParams(`${BillSearchParamsKey.YEAR}=`),
+        urlSearchParams: new URLSearchParams({
+          [BillSearchParamsKey.YEAR]: "",
+          [BillSearchParamsKey.MONTH]: "",
+        }),
       });
     });
-
     expect(screen.queryByRole("listitem")).not.toBeInTheDocument();
 
     act(() => {
-      // "year=2021"
+      // "year=2021&month=6"
       useUrlSearchParamsStore.setState({
-        urlSearchParams: new URLSearchParams(
-          `${BillSearchParamsKey.YEAR}=${fakeBillDate.getFullYear()}`
-        ),
+        urlSearchParams: new URLSearchParams({
+          [BillSearchParamsKey.YEAR]: `${fakeBillDate.getFullYear()}`,
+          [BillSearchParamsKey.MONTH]: `${fakeBillDate.getMonth() + 1}`,
+        }),
       });
     });
+    expect(screen.queryByRole("listitem")).not.toBeInTheDocument();
 
+    act(() => {
+      // "year=2021&month=6&category=All"
+      useUrlSearchParamsStore
+        .getState()
+        .updateUrlSearchParams(
+          BillSearchParamsKey.CATEGORY,
+          ExtraCategoryValue.ALL
+        );
+    });
     await waitFor(() => {
       expect(screen.getByRole("listitem")).toBeInTheDocument();
     });
-
     expect(screen.getByText(listItemTextDict.time)).toBeInTheDocument();
     expect(screen.getByText(listItemTextDict.category)).toBeInTheDocument();
     expect(screen.getByText(listItemTextDict.description)).toBeInTheDocument();
