@@ -11,6 +11,7 @@ import Divider from "@material-ui/core/Divider";
 import BillList from "./containers/BillList";
 import BillAmountStatisticsInfo from "./containers/BillAmountStatisticsInfo";
 import CategoryExpenditureStatisticsGraph from "./containers/CategoryExpenditureStatisticsGraph";
+import AppMsg from "./containers/AppMsg";
 
 const useStyles = makeStyles({
   root: {
@@ -37,6 +38,7 @@ function App() {
   return (
     <div className={classes.root}>
       <CssBaseline />
+      <AppMsg />
       <HeaderBar />
       {/* body container */}
       <Grid container className={classes.main} alignItems="flex-start">
