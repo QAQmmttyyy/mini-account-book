@@ -16,7 +16,7 @@ const useStyles = makeStyles({
 function HeaderBar() {
   const classes = useStyles();
   return (
-    <AppBar className={classes.root} position="static" color="default">
+    <AppBar className={classes.root} position="sticky" color="default">
       <Toolbar>
         <Grid item xs>
           <Typography variant="h6" color="primary">
