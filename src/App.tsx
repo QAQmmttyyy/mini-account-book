@@ -1,17 +1,17 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import HeaderBar from "./containers/HeaderBar";
 import Grid from "@material-ui/core/Grid";
+import Card from "@material-ui/core/Card";
+import Divider from "@material-ui/core/Divider";
+import AppMsg from "./containers/AppMsg";
+import HeaderBar from "./containers/HeaderBar";
+import BillList from "./containers/BillList";
 import YearFilterSelect from "./containers/YearFilterSelect";
 import MonthFilterSelect from "./containers/MonthFilterSelect";
 import CategoryFilterSelect from "./containers/CategoryFilterSelect";
-import Card from "@material-ui/core/Card";
-import Divider from "@material-ui/core/Divider";
-import BillList from "./containers/BillList";
-import BillAmountStatisticsInfo from "./containers/BillAmountStatisticsInfo";
-import CategoryExpenditureStatisticsGraph from "./containers/CategoryExpenditureStatisticsGraph";
-import AppMsg from "./containers/AppMsg";
+import MonthlyTotalAmountStatistics from "./containers/MonthlyTotalAmountStatistics";
+import MonthlyCategoryExpenditureStatistics from "./containers/MonthlyCategoryExpenditureStatistics";
 
 const useStyles = makeStyles({
   root: {
@@ -51,12 +51,9 @@ function App() {
               className={classes.filtersContainer}
               alignItems="center"
             >
-              <Grid item xs>
-                <YearFilterSelect />
-                <MonthFilterSelect />
-                <CategoryFilterSelect />
-              </Grid>
-              <BillAmountStatisticsInfo />
+              <YearFilterSelect />
+              <MonthFilterSelect />
+              <CategoryFilterSelect />
             </Grid>
             <Divider />
             <BillList />
@@ -64,7 +61,10 @@ function App() {
         </Grid>
         {/* right */}
         <Grid item xs>
-          <CategoryExpenditureStatisticsGraph />
+          <Card variant="outlined">
+            <MonthlyTotalAmountStatistics />
+            <MonthlyCategoryExpenditureStatistics />
+          </Card>
         </Grid>
       </Grid>
     </div>
