@@ -18,14 +18,11 @@ test("renders bill category data and with the default select option set", async 
 
   const optionElements = await waitFor(() => {
     const optionElements = screen.getAllByRole("option");
-
     expect(optionElements.length).toBe(categories.length + EXTRA_OPTION_AMOUNT);
-
     return optionElements;
   });
 
   expect(filterSelectElement).toHaveTextContent(ExtraCategoryName.ALL);
-
   // Omit the two local options: "All" and "None".
   for (
     let index = EXTRA_OPTION_AMOUNT;
