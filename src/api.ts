@@ -1,8 +1,9 @@
-import { Bill, BillCategory } from "./types";
+import { request } from "./request";
 import { BASE_URL } from "./constants";
+import { Bill, BillCategory } from "./types";
 
 export async function createBill(data: Bill): Promise<Bill> {
-  const res = await fetch(`${BASE_URL}/bill`, {
+  const res = await request(`${BASE_URL}/bill`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -14,7 +15,7 @@ export async function createBill(data: Bill): Promise<Bill> {
 }
 
 export async function readBill(queryString: string): Promise<Bill[]> {
-  const res = await fetch(`${BASE_URL}/bill?${queryString}`, {
+  const res = await request(`${BASE_URL}/bill?${queryString}`, {
     method: "GET",
   });
 
@@ -22,7 +23,7 @@ export async function readBill(queryString: string): Promise<Bill[]> {
 }
 
 export async function readBillCategory(): Promise<BillCategory[]> {
-  const res = await fetch(`${BASE_URL}/billCategory`, {
+  const res = await request(`${BASE_URL}/billCategory`, {
     method: "GET",
   });
 
@@ -30,7 +31,7 @@ export async function readBillCategory(): Promise<BillCategory[]> {
 }
 
 export async function readBillYear(): Promise<number[]> {
-  const res = await fetch(`${BASE_URL}/billYear`, {
+  const res = await request(`${BASE_URL}/billYear`, {
     method: "GET",
   });
 
