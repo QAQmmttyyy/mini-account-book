@@ -1,6 +1,6 @@
 import React from "react";
 import userEvent from "@testing-library/user-event";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { rest } from "msw";
 import { server } from "../apiMocks/server";
 import { BASE_URL } from "../constants";
@@ -17,11 +17,17 @@ test("renders year data in descending order and with the default select option s
   );
 
   render(<YearFilterSelect />);
-  const filterSelectElement = screen.getByRole("button");
-  userEvent.click(filterSelectElement);
-  const optionElements = await screen.findAllByRole("option");
 
-  expect(optionElements.length).toBe(years.length);
+  const filterSelectElement = screen.getByRole("button");
+
+  userEvent.click(filterSelectElement);
+
+  const optionElements = await waitFor(() => {
+    const optionElements = screen.getAllByRole("option");
+    expect(optionElements.length).toBe(years.length);
+    return optionElements;
+  });
+
   expect(filterSelectElement).toHaveTextContent(expectedDefaultOptionText);
   for (let index = 0; index < optionElements.length; index++) {
     const optionElement = optionElements[index];
