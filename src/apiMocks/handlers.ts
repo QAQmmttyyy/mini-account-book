@@ -15,18 +15,9 @@ export const handlers = [
   rest.get<undefined, Bill[]>(`${BASE_URL}/bill`, (req, res, ctx) => {
     const bills = db.get("bills") as Bill[];
     const searchParams = req.url.searchParams;
-    const hasGoodSearchParams =
-      searchParams.get("year") && searchParams.get("month");
-
-    // 400
-    if (!hasGoodSearchParams) {
-      return res(ctx.status(400, "Bad search params."), ctx.json([] as Bill[]));
-    }
-
-    // 200
     const billRequestParams: BillSearchParams = {
-      year: searchParams.get("year")!,
-      month: searchParams.get("month")!,
+      year: searchParams.get("year") ?? "",
+      month: searchParams.get("month") ?? "",
     };
     const predicate = getBillFilterPredicate(billRequestParams);
     return res(ctx.json(bills.filter(predicate)));
