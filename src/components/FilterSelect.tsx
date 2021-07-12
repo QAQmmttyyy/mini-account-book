@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Select, { SelectProps } from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import { OptionDataItem } from "../types";
-import { EMPTY_STRING } from "../constants";
 
 export interface FilterSelectProps extends Omit<SelectProps, "native"> {
   optionsData?: OptionDataItem[];
@@ -36,7 +35,7 @@ function FilterSelect({
   const classes = useStyles();
   const hasPlaceholder = !!placeholder;
   const placeholderItem = hasPlaceholder && (
-    <MenuItem value={EMPTY_STRING} disabled>
+    <MenuItem value={""} disabled>
       {placeholder}
     </MenuItem>
   );

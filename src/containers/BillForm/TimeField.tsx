@@ -10,7 +10,6 @@ import { useBillFormStore } from "../../store/billForm.store";
 import { isInvalidDate } from "../../utils";
 import {
   CHOOSE_TIME_TEXT,
-  EMPTY_STRING,
   NOT_EMPTY_TEXT,
   TIME_TEXT,
   WRONG_FORMAT_TEXT,
@@ -29,7 +28,7 @@ function TimeField(props: Props) {
     setField("time", date);
 
     if (date && !isInvalidDate(date)) {
-      setError("time", EMPTY_STRING);
+      setError("time", "");
     }
   };
   const handleBlur: KeyboardDatePickerProps["onBlur"] = (event) => {
@@ -42,7 +41,7 @@ function TimeField(props: Props) {
     } else if (isInvalidDate(date)) {
       msg = WRONG_FORMAT_TEXT;
     } else {
-      msg = EMPTY_STRING;
+      msg = "";
     }
 
     setError("time", msg);

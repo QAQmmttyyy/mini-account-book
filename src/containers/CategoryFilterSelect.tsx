@@ -1,10 +1,6 @@
 import React, { useEffect } from "react";
 import FilterSelect, { FilterSelectProps } from "../components/FilterSelect";
-import {
-  EMPTY_STRING,
-  ALL_CATEGORY_TEXT,
-  NO_CATEGORY_TEXT,
-} from "../constants";
+import { ALL_CATEGORY_TEXT, NO_CATEGORY_TEXT } from "../constants";
 import { ExtraCategoryValue } from "../enums";
 import { useApiStore } from "../store/api.store";
 import {
@@ -23,7 +19,7 @@ function CategoryFilterSelect() {
   const value =
     useUrlSearchParamsStore((state) =>
       state.urlSearchParams.get(BillSearchParamsKey.CATEGORY)
-    ) ?? EMPTY_STRING;
+    ) ?? "";
 
   const updateUrlSearchParams = useUrlSearchParamsStore(
     (state) => state.updateUrlSearchParams
@@ -57,7 +53,7 @@ function CategoryFilterSelect() {
 
   useEffect(() => {
     // set default select option.
-    if (value === EMPTY_STRING) {
+    if (value === "") {
       const firstOption = optionsData[0];
       setValue(firstOption.value);
     }

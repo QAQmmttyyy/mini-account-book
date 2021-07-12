@@ -3,7 +3,7 @@ import React from "react";
 import CNYAmountInput, {
   CNYAmountInputProps,
 } from "../../components/CNYAmountInput";
-import { AMOUNT_TEXT, EMPTY_STRING, NOT_EMPTY_TEXT } from "../../constants";
+import { AMOUNT_TEXT, NOT_EMPTY_TEXT } from "../../constants";
 import { useBillFormStore } from "../../store/billForm.store";
 
 interface Props {}
@@ -20,11 +20,11 @@ function AmountField(props: Props) {
     setField("amount", targetValue);
 
     if (targetValue) {
-      setError("amount", EMPTY_STRING);
+      setError("amount", "");
     }
   };
   const handleBlur: TextFieldProps["onBlur"] = (event) => {
-    setError("amount", event.target.value ? EMPTY_STRING : NOT_EMPTY_TEXT);
+    setError("amount", event.target.value ? "" : NOT_EMPTY_TEXT);
   };
 
   return (

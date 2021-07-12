@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import FilterSelect, { FilterSelectProps } from "../components/FilterSelect";
 import { useApiStore } from "../store/api.store";
-import { EMPTY_STRING, YEAR_TEXT } from "../constants";
+import { YEAR_TEXT } from "../constants";
 import { OptionDataItem } from "../types";
 import {
   BillSearchParamsKey,
@@ -12,7 +12,7 @@ function YearFilterSelect() {
   const value =
     useUrlSearchParamsStore((state) =>
       state.urlSearchParams.get(BillSearchParamsKey.YEAR)
-    ) ?? EMPTY_STRING;
+    ) ?? "";
   const updateUrlSearchParams = useUrlSearchParamsStore(
     (state) => state.updateUrlSearchParams
   );
@@ -44,7 +44,7 @@ function YearFilterSelect() {
   useEffect(() => {
     // If there is no selected option and it has year options,
     // set default select option.
-    if (value === EMPTY_STRING && years.length) {
+    if (value === "" && years.length) {
       const firstOption = optionsData[0];
       setValue(firstOption.value);
     }

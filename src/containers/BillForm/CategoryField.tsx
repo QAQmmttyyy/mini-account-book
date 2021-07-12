@@ -1,7 +1,7 @@
 import React from "react";
 import TextField, { TextFieldProps } from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
-import { CATEGORY_TEXT, EMPTY_STRING } from "../../constants";
+import { CATEGORY_TEXT, NONE_TEXT } from "../../constants";
 import { useApiStore } from "../../store/api.store";
 import { useBillFormStore } from "../../store/billForm.store";
 import { OptionDataItem } from "../../types";
@@ -9,8 +9,8 @@ import { OptionDataItem } from "../../types";
 interface Props {}
 
 const enabledPlaceholderItem: OptionDataItem = {
-  value: EMPTY_STRING,
-  description: "无",
+  value: "",
+  description: NONE_TEXT,
 };
 
 function CategoryField(props: Props) {

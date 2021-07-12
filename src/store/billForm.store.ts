@@ -1,6 +1,5 @@
 import create from "zustand";
 import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
-import { EMPTY_STRING } from "../constants";
 import { Bill } from "../types";
 
 interface Fields {
@@ -25,8 +24,8 @@ interface BillFormState {
 const initialFields: Fields = {
   time: new Date(),
   type: 0,
-  amount: EMPTY_STRING,
-  category: EMPTY_STRING,
+  amount: "",
+  category: "",
 };
 
 const initialErrors: Errors = {};

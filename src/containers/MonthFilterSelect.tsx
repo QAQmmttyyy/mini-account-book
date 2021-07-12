@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import FilterSelect, { FilterSelectProps } from "../components/FilterSelect";
-import { EMPTY_STRING, MONTHS, MONTH_TEXT } from "../constants";
+import { MONTHS, MONTH_TEXT } from "../constants";
 import {
   BillSearchParamsKey,
   useUrlSearchParamsStore,
@@ -12,7 +12,7 @@ function MonthFilterSelect() {
   const value =
     useUrlSearchParamsStore((state) =>
       state.urlSearchParams.get(BillSearchParamsKey.MONTH)
-    ) ?? EMPTY_STRING;
+    ) ?? "";
 
   const updateUrlSearchParams = useUrlSearchParamsStore(
     (state) => state.updateUrlSearchParams
@@ -32,7 +32,7 @@ function MonthFilterSelect() {
 
   useEffect(() => {
     // set default select option.
-    if (value === EMPTY_STRING) {
+    if (value === "") {
       const firstOption = optionsData[0];
       setValue(firstOption.value);
     }
