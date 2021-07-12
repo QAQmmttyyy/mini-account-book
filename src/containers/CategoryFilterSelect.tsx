@@ -4,8 +4,8 @@ import {
   EMPTY_STRING,
   ALL_CATEGORY_TEXT,
   NO_CATEGORY_TEXT,
-  ExtraCategoryValue,
 } from "../constants";
+import { ExtraCategoryValue } from "../enums";
 import { useApiStore } from "../store/api.store";
 import {
   BillSearchParamsKey,

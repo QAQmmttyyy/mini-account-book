@@ -36,8 +36,3 @@ export const MONTHLY_TOTAL_TEXT = "当月总计";
 export const MONTHLY_CATEGORY_EXPENDITURE_STATISTICS_TEXT = "当月支出分类统计";
 export const ALL_CATEGORY_TEXT = "全部分类";
 export const NO_CATEGORY_TEXT = "未分类";
-
-export enum ExtraCategoryValue {
-  ALL = "All", // 所有类别
-  NONE = "None", // 未分类
-}

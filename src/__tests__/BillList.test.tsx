@@ -6,7 +6,6 @@ import { fakeIncomeBill, fakeIncomeCategory } from "../apiMocks/fakeData";
 import {
   BASE_URL,
   CNY_SYMBOL,
-  ExtraCategoryValue,
   INCOME_TEXT,
 } from "../constants";
 import { Bill } from "../types";
@@ -15,6 +14,7 @@ import {
   BillSearchParamsKey,
   useUrlSearchParamsStore,
 } from "../store/urlSearchParams.store";
+import { ExtraCategoryValue } from "../enums";
 import BillList from "../containers/BillList";
 
 describe("<BillList />", () => {

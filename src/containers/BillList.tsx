@@ -7,11 +7,11 @@ import { useApiStore } from "../store/api.store";
 import {
   CNY_SYMBOL,
   EXPENDITURE_TEXT,
-  ExtraCategoryValue,
   INCOME_TEXT,
   NO_CATEGORY_TEXT,
   NO_DATA_TEXT,
 } from "../constants";
+import { ExtraCategoryValue } from "../enums";
 import {
   BillSearchParamsKey,
   useUrlSearchParamsStore,
