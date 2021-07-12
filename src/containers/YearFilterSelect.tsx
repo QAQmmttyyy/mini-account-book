@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import FilterSelect, { FilterSelectProps } from "../components/FilterSelect";
 import { useApiStore } from "../store/api.store";
-import { EMPTY_STRING } from "../constants";
+import { EMPTY_STRING, YEAR_TEXT } from "../constants";
 import { OptionDataItem } from "../types";
 import {
   BillSearchParamsKey,
@@ -27,7 +27,7 @@ function YearFilterSelect() {
   ]);
   const optionsData: OptionDataItem[] = years
     .sort((a, b) => b - a)
-    .map((year) => ({ description: year + " 年", value: year }));
+    .map((year) => ({ description: `${year} ${YEAR_TEXT}`, value: year }));
 
   useEffect(() => {
     setYears();

@@ -5,7 +5,12 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import Typography from "@material-ui/core/Typography";
 import Placeholder from "../components/Placeholder";
-import { CNY_SYMBOL, ExtraCategoryName } from "../constants";
+import {
+  CNY_SYMBOL,
+  MONTHLY_CATEGORY_EXPENDITURE_STATISTICS_TEXT,
+  NO_CATEGORY_TEXT,
+  NO_DATA_TEXT,
+} from "../constants";
 import { getExpenditureStatisticsByCategory } from "../helpers";
 import { useApiStore } from "../store/api.store";
 
@@ -23,9 +28,7 @@ function MonthlyCategoryExpenditureStatistics() {
       return (
         <ListItem key={categoryId} dense>
           <ListItemText
-            primary={
-              categoryIdToNameMap.get(categoryId) ?? ExtraCategoryName.NONE
-            }
+            primary={categoryIdToNameMap.get(categoryId) ?? NO_CATEGORY_TEXT}
           />
           <Typography>{`${CNY_SYMBOL}${amount.toFixed(2)}`}</Typography>
         </ListItem>
@@ -35,12 +38,12 @@ function MonthlyCategoryExpenditureStatistics() {
   return (
     <List>
       <ListSubheader>
-        <Typography>当月支出分类统计</Typography>
+        <Typography>{MONTHLY_CATEGORY_EXPENDITURE_STATISTICS_TEXT}</Typography>
       </ListSubheader>
       {sortedStatisticItems.length ? (
         sortedStatisticItems
       ) : (
-        <Placeholder>暂无数据</Placeholder>
+        <Placeholder>{NO_DATA_TEXT}</Placeholder>
       )}
     </List>
   );

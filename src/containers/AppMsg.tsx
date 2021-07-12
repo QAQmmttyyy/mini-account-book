@@ -2,6 +2,7 @@ import React from "react";
 import Snackbar, { SnackbarProps } from "@material-ui/core/Snackbar";
 import Button from "@material-ui/core/Button";
 import { useAppStore } from "../store/app.store";
+import { GOT_IT_TEXT } from "../constants";
 
 function AppMsg() {
   const msg = useAppStore((state) => state.msg);
@@ -27,7 +28,7 @@ function AppMsg() {
       }}
       action={
         <Button color="secondary" size="small" onClick={handleClickAction}>
-          知道了
+          {GOT_IT_TEXT}
         </Button>
       }
       onClose={handleClose}

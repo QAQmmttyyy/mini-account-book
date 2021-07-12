@@ -1,6 +1,11 @@
 import React, { useEffect } from "react";
 import FilterSelect, { FilterSelectProps } from "../components/FilterSelect";
-import { EMPTY_STRING, ExtraCategoryValue } from "../constants";
+import {
+  EMPTY_STRING,
+  ALL_CATEGORY_TEXT,
+  NO_CATEGORY_TEXT,
+  ExtraCategoryValue,
+} from "../constants";
 import { useApiStore } from "../store/api.store";
 import {
   BillSearchParamsKey,
@@ -9,8 +14,8 @@ import {
 import { OptionDataItem } from "../types";
 
 const localExtraCategoryOptionsData: OptionDataItem[] = [
-  { value: ExtraCategoryValue.ALL, description: "全部分类" },
-  { value: ExtraCategoryValue.NONE, description: "未分类" },
+  { value: ExtraCategoryValue.ALL, description: ALL_CATEGORY_TEXT },
+  { value: ExtraCategoryValue.NONE, description: NO_CATEGORY_TEXT },
 ];
 
 function CategoryFilterSelect() {

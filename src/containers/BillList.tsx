@@ -7,9 +7,10 @@ import { useApiStore } from "../store/api.store";
 import {
   CNY_SYMBOL,
   EXPENDITURE_TEXT,
-  ExtraCategoryName,
   ExtraCategoryValue,
   INCOME_TEXT,
+  NO_CATEGORY_TEXT,
+  NO_DATA_TEXT,
 } from "../constants";
 import {
   BillSearchParamsKey,
@@ -52,9 +53,7 @@ function BillList() {
       <ListItem key={index}>
         <ListItemText
           primary={new Date(time).toLocaleDateString()}
-          secondary={
-            categoryIdToNameMap.get(category) ?? ExtraCategoryName.NONE
-          }
+          secondary={categoryIdToNameMap.get(category) ?? NO_CATEGORY_TEXT}
         />
         <Typography>
           {type ? INCOME_TEXT : EXPENDITURE_TEXT} {CNY_SYMBOL}
@@ -67,7 +66,7 @@ function BillList() {
   return billListItems.length ? (
     <List>{billListItems}</List>
   ) : (
-    <Placeholder>暂无数据</Placeholder>
+    <Placeholder>{NO_DATA_TEXT}</Placeholder>
   );
 }
 

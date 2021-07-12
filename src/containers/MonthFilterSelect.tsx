@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import FilterSelect, { FilterSelectProps } from "../components/FilterSelect";
-import { EMPTY_STRING, MONTHS } from "../constants";
+import { EMPTY_STRING, MONTHS, MONTH_TEXT } from "../constants";
 import {
   BillSearchParamsKey,
   useUrlSearchParamsStore,
@@ -26,7 +26,7 @@ function MonthFilterSelect() {
 
   // 2. options data
   const optionsData: OptionDataItem[] = MONTHS.map((month) => ({
-    description: month + " 月",
+    description: `${month} ${MONTH_TEXT}`,
     value: month,
   }));
 

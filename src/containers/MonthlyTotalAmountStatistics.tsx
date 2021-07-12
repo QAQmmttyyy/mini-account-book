@@ -5,7 +5,12 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
 import { useApiStore } from "../store/api.store";
-import { CNY_SYMBOL, EXPENDITURE_TEXT, INCOME_TEXT } from "../constants";
+import {
+  CNY_SYMBOL,
+  EXPENDITURE_TEXT,
+  INCOME_TEXT,
+  MONTHLY_TOTAL_TEXT,
+} from "../constants";
 
 function MonthlyTotalAmountStatistics() {
   const bills = useApiStore((state) => state.bills);
@@ -24,7 +29,7 @@ function MonthlyTotalAmountStatistics() {
   return (
     <List>
       <ListSubheader>
-        <Typography>当月总计</Typography>
+        <Typography>{MONTHLY_TOTAL_TEXT}</Typography>
       </ListSubheader>
       <ListItem dense>
         <ListItemText>{EXPENDITURE_TEXT}</ListItemText>

@@ -1,7 +1,7 @@
 import React from "react";
 import userEvent from "@testing-library/user-event";
 import { render, screen, waitFor } from "@testing-library/react";
-import { ExtraCategoryName } from "../constants";
+import { ALL_CATEGORY_TEXT } from "../constants";
 import { db } from "../apiMocks/db";
 import { BillCategory } from "../types";
 import CategoryFilterSelect from "../containers/CategoryFilterSelect";
@@ -22,7 +22,7 @@ test("renders bill category data and with the default select option set", async 
     return optionElements;
   });
 
-  expect(filterSelectElement).toHaveTextContent(ExtraCategoryName.ALL);
+  expect(filterSelectElement).toHaveTextContent(ALL_CATEGORY_TEXT);
   // Omit the two local options: "All" and "None".
   for (
     let index = EXTRA_OPTION_AMOUNT;
