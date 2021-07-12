@@ -3,12 +3,6 @@ function getDynamicTypeValue(originalValue: string): string | number | boolean {
     return Number(originalValue);
   }
 
-  if (originalValue === "true") {
-    return true;
-  } else if (originalValue === "false") {
-    return false;
-  }
-
   return originalValue;
 }
 
