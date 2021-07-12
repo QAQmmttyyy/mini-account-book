@@ -1,4 +1,4 @@
-export enum ExtraCategoryValue {
+export enum ExtraCategoryId {
   ALL = "All", // 所有类别
-  NONE = "None", // 未分类
+  NO = "", // 未分类
 }

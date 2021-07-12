@@ -8,15 +8,15 @@ import {
   CNY_SYMBOL,
   EXPENDITURE_TEXT,
   INCOME_TEXT,
-  NO_CATEGORY_TEXT,
   NO_DATA_TEXT,
 } from "../constants";
-import { ExtraCategoryValue } from "../enums";
+import { ExtraCategoryId } from "../enums";
 import {
   BillSearchParamsKey,
   useUrlSearchParamsStore,
 } from "../store/urlSearchParams.store";
 import Placeholder from "../components/Placeholder";
+import { useCategoryIdToNameMap } from "../hooks";
 
 function BillList() {
   const urlSearchParams = useUrlSearchParamsStore(
@@ -34,18 +34,14 @@ function BillList() {
     }
   }, [paramYear, paramMonth, bill]);
 
-  const billCategories = useApiStore((state) => state.billCategories);
-  const categoryIdToNameMap = billCategories.reduce(
-    (prevMap, category) => prevMap.set(category.id, category.name),
-    new Map<string, string>()
-  );
+  const categoryIdToNameMap = useCategoryIdToNameMap();
   const bills = useApiStore((state) => state.bills);
   const paramCategory = urlSearchParams.get(BillSearchParamsKey.CATEGORY);
   const filteredBills =
-    paramCategory === ExtraCategoryValue.ALL
+    paramCategory === ExtraCategoryId.ALL
       ? bills
       : bills.filter(
-          ({ category = ExtraCategoryValue.NONE }) => category === paramCategory
+          ({ category = ExtraCategoryId.NO }) => category === paramCategory
         );
   const billListItems = filteredBills.map((bill, index) => {
     const { time, type, amount, category = "" } = bill;
@@ -53,7 +49,7 @@ function BillList() {
       <ListItem key={index}>
         <ListItemText
           primary={new Date(time).toLocaleDateString()}
-          secondary={categoryIdToNameMap.get(category) ?? NO_CATEGORY_TEXT}
+          secondary={categoryIdToNameMap.get(category)}
         />
         <Typography>
           {type ? INCOME_TEXT : EXPENDITURE_TEXT} {CNY_SYMBOL}

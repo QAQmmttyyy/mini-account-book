@@ -8,28 +8,22 @@ import Placeholder from "../components/Placeholder";
 import {
   CNY_SYMBOL,
   MONTHLY_CATEGORY_EXPENDITURE_STATISTICS_TEXT,
-  NO_CATEGORY_TEXT,
   NO_DATA_TEXT,
 } from "../constants";
 import { getExpenditureStatisticsByCategory } from "../helpers";
 import { useApiStore } from "../store/api.store";
+import { useCategoryIdToNameMap } from "../hooks";
 
 function MonthlyCategoryExpenditureStatistics() {
   const bills = useApiStore((state) => state.bills);
   const statistics = getExpenditureStatisticsByCategory(bills);
-  const billCategories = useApiStore((state) => state.billCategories);
-  const categoryIdToNameMap = billCategories.reduce(
-    (prevMap, category) => prevMap.set(category.id, category.name),
-    new Map<string, string>()
-  );
+  const categoryIdToNameMap = useCategoryIdToNameMap();
   const sortedStatisticItems = statistics
     .sort((a, b) => b[1] - a[1])
     .map(([categoryId, amount]) => {
       return (
         <ListItem key={categoryId} dense>
-          <ListItemText
-            primary={categoryIdToNameMap.get(categoryId) ?? NO_CATEGORY_TEXT}
-          />
+          <ListItemText primary={categoryIdToNameMap.get(categoryId)} />
           <Typography>{`${CNY_SYMBOL}${amount.toFixed(2)}`}</Typography>
         </ListItem>
       );

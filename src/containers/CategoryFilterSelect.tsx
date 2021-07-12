@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import FilterSelect, { FilterSelectProps } from "../components/FilterSelect";
 import { ALL_CATEGORY_TEXT, NO_CATEGORY_TEXT } from "../constants";
-import { ExtraCategoryValue } from "../enums";
+import { ExtraCategoryId } from "../enums";
 import { useApiStore } from "../store/api.store";
 import {
   BillSearchParamsKey,
@@ -10,8 +10,8 @@ import {
 import { OptionDataItem } from "../types";
 
 const localExtraCategoryOptionsData: OptionDataItem[] = [
-  { value: ExtraCategoryValue.ALL, description: ALL_CATEGORY_TEXT },
-  { value: ExtraCategoryValue.NONE, description: NO_CATEGORY_TEXT },
+  { value: ExtraCategoryId.ALL, description: ALL_CATEGORY_TEXT },
+  { value: ExtraCategoryId.NO, description: NO_CATEGORY_TEXT },
 ];
 
 function CategoryFilterSelect() {

@@ -14,7 +14,7 @@ import {
   BillSearchParamsKey,
   useUrlSearchParamsStore,
 } from "../store/urlSearchParams.store";
-import { ExtraCategoryValue } from "../enums";
+import { ExtraCategoryId } from "../enums";
 import BillList from "../containers/BillList";
 
 describe("<BillList />", () => {
@@ -72,7 +72,7 @@ describe("<BillList />", () => {
         .getState()
         .updateUrlSearchParams(
           BillSearchParamsKey.CATEGORY,
-          ExtraCategoryValue.ALL
+          ExtraCategoryId.ALL
         );
     });
     await waitFor(() => {
