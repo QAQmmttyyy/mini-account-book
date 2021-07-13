@@ -13,6 +13,7 @@ export const MONTHS = [
   "11",
   "12",
 ];
+export const ZERO_WIDTH_SPACE = "\u200b";
 export const CNY_SYMBOL = "￥";
 export const INCOME_TEXT = "收入";
 export const EXPENDITURE_TEXT = "支出";
