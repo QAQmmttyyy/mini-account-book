@@ -1,7 +1,12 @@
 import React from "react";
 import { act, render, screen } from "@testing-library/react";
 import { fakeExpenditureBill, fakeIncomeBill } from "../apiMocks/fakeData";
-import { CNY_SYMBOL, EXPENDITURE_TEXT, INCOME_TEXT } from "../constants";
+import {
+  CNY_SYMBOL,
+  EXPENDITURE_TEXT,
+  INCOME_TEXT,
+  MONTHLY_TOTAL_TEXT,
+} from "../constants";
 import { useApiStore } from "../store/api.store";
 import MonthlyTotalAmountStatistics from "../containers/MonthlyTotalAmountStatistics";
 
@@ -12,7 +17,7 @@ test("renders bill amount statistics info", async () => {
   const expenditureInfoA = `${EXPENDITURE_TEXT}${CNY_SYMBOL}${fixedZeroText}`;
   const incomeInfoA = `${INCOME_TEXT}${CNY_SYMBOL}${fixedZeroText}`;
   const liElementsA = screen.getAllByRole("listitem");
-  // Omit list sub header.
+  expect(liElementsA[0]).toHaveTextContent(MONTHLY_TOTAL_TEXT);
   expect(liElementsA[1]).toHaveTextContent(expenditureInfoA);
   expect(liElementsA[2]).toHaveTextContent(incomeInfoA);
 
@@ -27,7 +32,7 @@ test("renders bill amount statistics info", async () => {
     2
   )}`;
   const liElementsB = screen.getAllByRole("listitem");
-  // Omit list sub header.
+  expect(liElementsB[0]).toHaveTextContent(MONTHLY_TOTAL_TEXT);
   expect(liElementsB[1]).toHaveTextContent(expenditureInfoB);
   expect(liElementsB[2]).toHaveTextContent(incomeInfoB);
 });

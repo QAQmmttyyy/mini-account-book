@@ -3,11 +3,7 @@ import { rest } from "msw";
 import { act, render, screen, waitFor } from "@testing-library/react";
 import { server } from "../apiMocks/server";
 import { fakeIncomeBill, fakeIncomeCategory } from "../apiMocks/fakeData";
-import {
-  BASE_URL,
-  CNY_SYMBOL,
-  INCOME_TEXT,
-} from "../constants";
+import { BASE_URL, CNY_SYMBOL, INCOME_TEXT, NO_DATA_TEXT } from "../constants";
 import { Bill } from "../types";
 import { useApiStore } from "../store/api.store";
 import {
@@ -81,5 +77,13 @@ describe("<BillList />", () => {
     expect(screen.getByText(listItemTextDict.time)).toBeInTheDocument();
     expect(screen.getByText(listItemTextDict.category)).toBeInTheDocument();
     expect(screen.getByText(listItemTextDict.description)).toBeInTheDocument();
+  });
+
+  test("renders empty content", () => {
+    useApiStore.setState({ bills: [] });
+
+    render(<BillList />);
+
+    expect(screen.getByText(NO_DATA_TEXT)).toBeInTheDocument();
   });
 });

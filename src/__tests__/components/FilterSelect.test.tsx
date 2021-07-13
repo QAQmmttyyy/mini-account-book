@@ -1,8 +1,9 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import FilterSelect from "../../components/FilterSelect";
 import { OptionDataItem } from "../../types";
+import { ZERO_WIDTH_SPACE } from "../../constants";
+import FilterSelect from "../../components/FilterSelect";
 
 test("renders with placeholder display and the option item", () => {
   const placeholderText = "年";
@@ -47,8 +48,7 @@ test("renders without placeholder display and the option item", () => {
   render(<FilterSelect value="" />);
 
   const filterSelectElement = screen.getByRole("button");
-  // "\u200b": zero-width space
-  expect(filterSelectElement).toHaveTextContent("\u200b");
+  expect(filterSelectElement).toHaveTextContent(ZERO_WIDTH_SPACE);
 
   userEvent.click(filterSelectElement);
 
