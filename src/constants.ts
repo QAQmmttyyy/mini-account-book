@@ -1,4 +1,5 @@
-export const BASE_URL = "http://localhost:3000";
+export const BASE_URL =
+  process.env.NODE_ENV === "test" ? "http://localhost:3000" : location.origin;
 export const MONTHS = [
   "1",
   "2",
