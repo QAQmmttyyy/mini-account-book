@@ -1,9 +1,9 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { OptionDataItem } from "../../types";
-import { ZERO_WIDTH_SPACE } from "../../constants";
-import FilterSelect from "../../components/FilterSelect";
+import { OptionDataItem } from "../types";
+import { ZERO_WIDTH_SPACE } from "../constants";
+import FilterSelect from "../components/FilterSelect";
 
 test("renders with placeholder display and the option item", () => {
   const placeholderText = "年";

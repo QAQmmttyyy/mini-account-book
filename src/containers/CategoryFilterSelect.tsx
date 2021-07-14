@@ -15,31 +15,25 @@ const localExtraCategoryOptionsData: OptionDataItem[] = [
 ];
 
 function CategoryFilterSelect() {
-  // 1. value
   const value =
     useUrlSearchParamsStore((state) =>
       state.urlSearchParams.get(BillSearchParamsKey.CATEGORY)
     ) ?? "";
-
   const updateUrlSearchParams = useUrlSearchParamsStore(
     (state) => state.updateUrlSearchParams
   );
-
   const setValue = updateUrlSearchParams.bind(
     null,
     BillSearchParamsKey.CATEGORY
   );
-
   const handleValueChange: FilterSelectProps["onChange"] = (event) => {
     setValue(event.target.value);
   };
 
-  // 2. options data
   const [categories, setCategories] = useApiStore((state) => [
     state.billCategories,
     state.setBillCategories,
   ]);
-
   const optionsData: OptionDataItem[] = localExtraCategoryOptionsData.concat(
     categories.map((category) => ({
       description: category.name,
@@ -52,7 +46,6 @@ function CategoryFilterSelect() {
   }, []);
 
   useEffect(() => {
-    // set default select option.
     if (value === "") {
       const firstOption = optionsData[0];
       setValue(firstOption.value);
@@ -65,6 +58,7 @@ function CategoryFilterSelect() {
       value={value}
       optionsData={optionsData}
       onChange={handleValueChange}
+      displayEmpty
     />
   );
 }

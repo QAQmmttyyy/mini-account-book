@@ -4,6 +4,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import { rest } from "msw";
 import { server } from "../apiMocks/server";
 import { BASE_URL, YEAR_TEXT } from "../constants";
+import { BillSearchParamsKey } from "../store/urlSearchParams.store";
 import YearFilterSelect from "../containers/YearFilterSelect";
 
 test("renders with year data and selects year", async () => {
@@ -26,8 +27,10 @@ test("renders with year data and selects year", async () => {
     expect(optionElements.length).toBe(years.length);
     return optionElements;
   });
-
   expect(filterSelectElement).toHaveTextContent(`2021 ${YEAR_TEXT}`);
+  expect(
+    new URLSearchParams(location.search).get(BillSearchParamsKey.YEAR)
+  ).toBe("2021");
   for (let index = 0; index < optionElements.length; index++) {
     const optionElement = optionElements[index];
     const yearText = `${descendingYears[index]}`;
@@ -36,6 +39,8 @@ test("renders with year data and selects year", async () => {
   }
 
   userEvent.click(optionElements[1]);
-
   expect(filterSelectElement).toHaveTextContent(`2020 ${YEAR_TEXT}`);
+  expect(
+    new URLSearchParams(location.search).get(BillSearchParamsKey.YEAR)
+  ).toBe("2020");
 });
