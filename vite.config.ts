@@ -1,8 +1,17 @@
-import { defineConfig } from 'vite'
-import reactRefresh from '@vitejs/plugin-react-refresh'
-import plainText from 'vite-plugin-plain-text';
+import { defineConfig } from "vite";
+import reactRefresh from "@vitejs/plugin-react-refresh";
+import plainText from "vite-plugin-plain-text";
 
-// https://vitejs.dev/config/
+process.env.BROWSER =
+  process.platform === "win32"
+    ? "chrome"
+    : process.platform === "darwin"
+    ? "google chrome"
+    : undefined;
+
 export default defineConfig({
-  plugins: [reactRefresh(), plainText(/\.csv$/)]
-})
+  server: {
+    open: true,
+  },
+  plugins: [reactRefresh(), plainText(/\.csv$/)],
+});
