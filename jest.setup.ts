@@ -1,10 +1,10 @@
 import "whatwg-fetch";
 import "@testing-library/jest-dom";
-import { initDB } from "./src/apiMocks/db";
+import { setupDB } from "./src/apiMocks/db";
 import { server } from "./src/apiMocks/server";
 
 beforeAll(() => {
-  initDB();
+  setupDB();
   // Enable the mocking in tests.
   server.listen();
 });
