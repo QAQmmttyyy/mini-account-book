@@ -5,7 +5,7 @@ import { rest } from "msw";
 import { server } from "../apiMocks/server";
 import { BASE_URL, YEAR_TEXT } from "../constants";
 import { BillSearchParamsKey } from "../store/urlSearchParams.store";
-import YearFilterSelect from "../containers/YearFilterSelect";
+import YearFilterSelect from "../components/YearFilterSelect";
 
 test("renders with year data and selects year", async () => {
   const years = [2020, 2021];

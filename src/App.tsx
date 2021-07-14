@@ -4,14 +4,14 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import Divider from "@material-ui/core/Divider";
-import AppMsg from "./containers/AppMsg";
-import HeaderBar from "./containers/HeaderBar";
-import BillList from "./containers/BillList";
-import YearFilterSelect from "./containers/YearFilterSelect";
-import MonthFilterSelect from "./containers/MonthFilterSelect";
-import CategoryFilterSelect from "./containers/CategoryFilterSelect";
-import MonthlyTotalAmountStatistics from "./containers/MonthlyTotalAmountStatistics";
-import MonthlyCategoryExpenditureStatistics from "./containers/MonthlyCategoryExpenditureStatistics";
+import AppMsg from "./components/AppMsg";
+import BillList from "./components/BillList";
+import CategoryFilterSelect from "./components/CategoryFilterSelect";
+import HeaderBar from "./components/HeaderBar";
+import MonthFilterSelect from "./components/MonthFilterSelect";
+import MonthlyCategoryExpenditureStatistics from "./components/MonthlyCategoryExpenditureStatistics";
+import MonthlyTotalAmountStatistics from "./components/MonthlyTotalAmountStatistics";
+import YearFilterSelect from "./components/YearFilterSelect";
 
 const useStyles = makeStyles({
   root: {

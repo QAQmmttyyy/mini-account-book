@@ -11,7 +11,7 @@ import {
   useUrlSearchParamsStore,
 } from "../store/urlSearchParams.store";
 import { ExtraCategoryId } from "../enums";
-import BillList from "../containers/BillList";
+import BillList from "../components/BillList";
 
 describe("<BillList />", () => {
   const fakeBillDate = new Date(fakeIncomeBill.time);

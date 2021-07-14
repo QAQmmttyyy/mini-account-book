@@ -14,7 +14,7 @@ import {
   NO_CATEGORY_TEXT,
   NO_DATA_TEXT,
 } from "../constants";
-import MonthlyCategoryExpenditureStatistics from "../containers/MonthlyCategoryExpenditureStatistics";
+import MonthlyCategoryExpenditureStatistics from "../components/MonthlyCategoryExpenditureStatistics";
 
 test("renders statistics content", () => {
   const noCategoryExpenditureBill: Bill = {

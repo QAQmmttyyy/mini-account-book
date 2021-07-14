@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { render, screen, waitFor } from "@testing-library/react";
 import { MONTHS, MONTH_TEXT } from "../constants";
 import { BillSearchParamsKey } from "../store/urlSearchParams.store";
-import MonthFilterSelect from "../containers/MonthFilterSelect";
+import MonthFilterSelect from "../components/MonthFilterSelect";
 
 test("renders month data and selects month", async () => {
   render(<MonthFilterSelect />);

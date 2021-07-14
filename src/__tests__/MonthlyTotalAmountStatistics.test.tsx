@@ -9,7 +9,7 @@ import {
   NO_DATA_TEXT,
 } from "../constants";
 import { useApiStore } from "../store/api.store";
-import MonthlyTotalAmountStatistics from "../containers/MonthlyTotalAmountStatistics";
+import MonthlyTotalAmountStatistics from "../components/MonthlyTotalAmountStatistics";
 
 test("renders bill amount statistics info", async () => {
   render(<MonthlyTotalAmountStatistics />);

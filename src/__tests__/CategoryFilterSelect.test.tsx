@@ -8,7 +8,7 @@ import { BillCategory } from "../types";
 import { ExtraCategoryId } from "../enums";
 import { fakeExpenditureCategory } from "../apiMocks/fakeData";
 import { BillSearchParamsKey } from "../store/urlSearchParams.store";
-import CategoryFilterSelect from "../containers/CategoryFilterSelect";
+import CategoryFilterSelect from "../components/CategoryFilterSelect";
 
 test("renders bill category data and selects category", async () => {
   const categories = [fakeExpenditureCategory];
@@ -54,7 +54,7 @@ test("renders bill category data and selects category", async () => {
   expect(
     new URLSearchParams(location.search).get(BillSearchParamsKey.CATEGORY)
   ).toBe(ExtraCategoryId.ALL);
-  
+
   userEvent.click(filterSelectElement);
   userEvent.click(optionElements[1]);
   expect(filterSelectElement).toHaveTextContent(NO_CATEGORY_TEXT);

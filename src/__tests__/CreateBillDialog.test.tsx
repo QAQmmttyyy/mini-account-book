@@ -5,7 +5,7 @@ import {
   fakeExpenditureCategory,
   fakeIncomeCategory,
 } from "../apiMocks/fakeData";
-import CreateBillDialog from "../containers/CreateBillDialog";
+import CreateBillDialog from "../components/CreateBillDialog";
 import { useApiStore } from "../store/api.store";
 import {
   AMOUNT_TEXT,

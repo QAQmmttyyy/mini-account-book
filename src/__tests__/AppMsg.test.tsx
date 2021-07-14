@@ -8,7 +8,7 @@ import {
 import userEvent from "@testing-library/user-event";
 import { useAppStore } from "../store/app.store";
 import { GOT_IT_TEXT } from "../constants";
-import AppMsg from "../containers/AppMsg";
+import AppMsg from "../components/AppMsg";
 
 test("open", () => {
   render(<AppMsg />);

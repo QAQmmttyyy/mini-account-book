@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { APP_TITLE_TEXT, CREATE_BILL_TEXT } from "../constants";
-import HeaderBar from "../containers/HeaderBar";
+import HeaderBar from "../components/HeaderBar";
 
 test("renders", () => {
   render(<HeaderBar />);

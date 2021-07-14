@@ -6,10 +6,10 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import AmountField from "./BillForm/AmountField";
-import CategoryField from "./BillForm/CategoryField";
-import TimeField from "./BillForm/TimeField";
-import TypeField from "./BillForm/TypeField";
+import AmountField from "../components/BillForm/AmountField";
+import CategoryField from "../components/BillForm/CategoryField";
+import TimeField from "../components/BillForm/TimeField";
+import TypeField from "../components/BillForm/TypeField";
 import { useBillFormStore } from "../store/billForm.store";
 import { useApiStore } from "../store/api.store";
 import {
