@@ -13,7 +13,7 @@ import {
 import { ExtraCategoryId } from "../enums";
 import BillList from "../components/BillList";
 
-describe("<BillList />", () => {
+test("renders bill list", async () => {
   const fakeBillDate = new Date(fakeIncomeBill.time);
   const listItemTextDict = {
     time: fakeBillDate.toLocaleDateString(), // "2021/6/7" for "zh-CN" locale
@@ -22,7 +22,6 @@ describe("<BillList />", () => {
       2
     )}`, // "收入 ￥1000.00"
   };
-
   server.use(
     rest.get<undefined, Bill[]>(`${BASE_URL}/bill`, (req, res, ctx) => {
       return res(ctx.json([fakeIncomeBill]));
@@ -30,60 +29,65 @@ describe("<BillList />", () => {
   );
   useApiStore.setState({ billCategories: [fakeIncomeCategory] });
 
-  test("renders bill list", async () => {
-    // ""
-    useUrlSearchParamsStore.setState({
-      urlSearchParams: new URLSearchParams(),
-    });
-
-    render(<BillList />);
-
-    expect(screen.queryByRole("listitem")).not.toBeInTheDocument();
-
-    act(() => {
-      // "year=&month="
-      useUrlSearchParamsStore.setState({
-        urlSearchParams: new URLSearchParams({
-          [BillSearchParamsKey.YEAR]: "",
-          [BillSearchParamsKey.MONTH]: "",
-        }),
-      });
-    });
-    expect(screen.queryByRole("listitem")).not.toBeInTheDocument();
-
-    act(() => {
-      // "year=2021&month=6"
-      useUrlSearchParamsStore.setState({
-        urlSearchParams: new URLSearchParams({
-          [BillSearchParamsKey.YEAR]: `${fakeBillDate.getFullYear()}`,
-          [BillSearchParamsKey.MONTH]: `${fakeBillDate.getMonth() + 1}`,
-        }),
-      });
-    });
-    expect(screen.queryByRole("listitem")).not.toBeInTheDocument();
-
-    act(() => {
-      // "year=2021&month=6&category=All"
-      useUrlSearchParamsStore
-        .getState()
-        .updateUrlSearchParams(
-          BillSearchParamsKey.CATEGORY,
-          ExtraCategoryId.ALL
-        );
-    });
-    await waitFor(() => {
-      expect(screen.getByRole("listitem")).toBeInTheDocument();
-    });
-    expect(screen.getByText(listItemTextDict.time)).toBeInTheDocument();
-    expect(screen.getByText(listItemTextDict.category)).toBeInTheDocument();
-    expect(screen.getByText(listItemTextDict.description)).toBeInTheDocument();
+  // ""
+  useUrlSearchParamsStore.setState({
+    urlSearchParams: new URLSearchParams(),
   });
 
-  test("renders empty content", () => {
-    useApiStore.setState({ bills: [] });
+  render(<BillList />);
 
-    render(<BillList />);
+  expect(screen.queryByRole("listitem")).not.toBeInTheDocument();
 
+  act(() => {
+    // "year=&month="
+    useUrlSearchParamsStore.setState({
+      urlSearchParams: new URLSearchParams({
+        [BillSearchParamsKey.YEAR]: "",
+        [BillSearchParamsKey.MONTH]: "",
+      }),
+    });
+  });
+  expect(screen.queryByRole("listitem")).not.toBeInTheDocument();
+
+  act(() => {
+    // "year=2021&month=6"
+    useUrlSearchParamsStore.setState({
+      urlSearchParams: new URLSearchParams({
+        [BillSearchParamsKey.YEAR]: `${fakeBillDate.getFullYear()}`,
+        [BillSearchParamsKey.MONTH]: `${fakeBillDate.getMonth() + 1}`,
+      }),
+    });
+  });
+  expect(screen.queryByRole("listitem")).not.toBeInTheDocument();
+
+  act(() => {
+    // "year=2021&month=6&category=All"
+    useUrlSearchParamsStore
+      .getState()
+      .updateUrlSearchParams(BillSearchParamsKey.CATEGORY, ExtraCategoryId.ALL);
+  });
+  await waitFor(() => {
+    expect(screen.getByRole("listitem")).toBeInTheDocument();
+  });
+  expect(screen.getByText(listItemTextDict.time)).toBeInTheDocument();
+  expect(screen.getByText(listItemTextDict.category)).toBeInTheDocument();
+  expect(screen.getByText(listItemTextDict.description)).toBeInTheDocument();
+});
+
+test("renders empty content", async () => {
+  server.use(
+    rest.get<undefined, Bill[]>(`${BASE_URL}/bill`, (req, res, ctx) => {
+      return res(ctx.json([] as Bill[]));
+    })
+  );
+  // "year=2021&month=6&category=All"
+  useUrlSearchParamsStore
+    .getState()
+    .updateUrlSearchParams(BillSearchParamsKey.CATEGORY, ExtraCategoryId.ALL);
+
+  render(<BillList />);
+
+  await waitFor(() => {
     expect(screen.getByText(NO_DATA_TEXT)).toBeInTheDocument();
   });
 });
