@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListSubheader from "@material-ui/core/ListSubheader";
@@ -10,7 +10,9 @@ import {
   EXPENDITURE_TEXT,
   INCOME_TEXT,
   MONTHLY_TOTAL_TEXT,
+  NO_DATA_TEXT,
 } from "../constants";
+import Placeholder from "../components/Placeholder";
 
 function MonthlyTotalAmountStatistics() {
   const bills = useApiStore((state) => state.bills);
@@ -31,14 +33,20 @@ function MonthlyTotalAmountStatistics() {
       <ListSubheader>
         <Typography>{MONTHLY_TOTAL_TEXT}</Typography>
       </ListSubheader>
-      <ListItem dense>
-        <ListItemText>{EXPENDITURE_TEXT}</ListItemText>
-        <Typography>{expenditureInfo}</Typography>
-      </ListItem>
-      <ListItem dense>
-        <ListItemText>{INCOME_TEXT}</ListItemText>
-        <Typography>{incomeInfo}</Typography>
-      </ListItem>
+      {bills.length ? (
+        <Fragment>
+          <ListItem dense>
+            <ListItemText>{EXPENDITURE_TEXT}</ListItemText>
+            <Typography>{expenditureInfo}</Typography>
+          </ListItem>
+          <ListItem dense>
+            <ListItemText>{INCOME_TEXT}</ListItemText>
+            <Typography>{incomeInfo}</Typography>
+          </ListItem>
+        </Fragment>
+      ) : (
+        <Placeholder>{NO_DATA_TEXT}</Placeholder>
+      )}
     </List>
   );
 }

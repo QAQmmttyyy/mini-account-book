@@ -6,6 +6,7 @@ import {
   EXPENDITURE_TEXT,
   INCOME_TEXT,
   MONTHLY_TOTAL_TEXT,
+  NO_DATA_TEXT,
 } from "../constants";
 import { useApiStore } from "../store/api.store";
 import MonthlyTotalAmountStatistics from "../containers/MonthlyTotalAmountStatistics";
@@ -13,26 +14,28 @@ import MonthlyTotalAmountStatistics from "../containers/MonthlyTotalAmountStatis
 test("renders bill amount statistics info", async () => {
   render(<MonthlyTotalAmountStatistics />);
 
-  const fixedZeroText = (0).toFixed(2);
-  const expenditureInfoA = `${EXPENDITURE_TEXT}${CNY_SYMBOL}${fixedZeroText}`;
-  const incomeInfoA = `${INCOME_TEXT}${CNY_SYMBOL}${fixedZeroText}`;
-  const liElementsA = screen.getAllByRole("listitem");
-  expect(liElementsA[0]).toHaveTextContent(MONTHLY_TOTAL_TEXT);
-  expect(liElementsA[1]).toHaveTextContent(expenditureInfoA);
-  expect(liElementsA[2]).toHaveTextContent(incomeInfoA);
-
   act(() => {
     useApiStore.setState({ bills: [fakeIncomeBill, fakeExpenditureBill] });
   });
 
-  const expenditureInfoB = `${EXPENDITURE_TEXT}${CNY_SYMBOL}${fakeExpenditureBill.amount.toFixed(
+  const expenditureInfo = `${EXPENDITURE_TEXT}${CNY_SYMBOL}${fakeExpenditureBill.amount.toFixed(
     2
   )}`;
-  const incomeInfoB = `${INCOME_TEXT}${CNY_SYMBOL}${fakeIncomeBill.amount.toFixed(
+  const incomeInfo = `${INCOME_TEXT}${CNY_SYMBOL}${fakeIncomeBill.amount.toFixed(
     2
   )}`;
-  const liElementsB = screen.getAllByRole("listitem");
-  expect(liElementsB[0]).toHaveTextContent(MONTHLY_TOTAL_TEXT);
-  expect(liElementsB[1]).toHaveTextContent(expenditureInfoB);
-  expect(liElementsB[2]).toHaveTextContent(incomeInfoB);
+  const liElements = screen.getAllByRole("listitem");
+  expect(liElements[0]).toHaveTextContent(MONTHLY_TOTAL_TEXT);
+  expect(liElements[1]).toHaveTextContent(expenditureInfo);
+  expect(liElements[2]).toHaveTextContent(incomeInfo);
+});
+
+test("renders empty content", () => {
+  useApiStore.setState({ bills: [] });
+
+  render(<MonthlyTotalAmountStatistics />);
+
+  const liElements = screen.getAllByRole("listitem");
+  expect(liElements[0]).toHaveTextContent(MONTHLY_TOTAL_TEXT);
+  expect(screen.getByText(NO_DATA_TEXT)).toBeInTheDocument();
 });
