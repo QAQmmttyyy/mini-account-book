@@ -8,23 +8,18 @@ import {
 import { OptionDataItem } from "../types";
 
 function MonthFilterSelect() {
-  // 1. value
   const value =
     useUrlSearchParamsStore((state) =>
       state.urlSearchParams.get(BillSearchParamsKey.MONTH)
     ) ?? "";
-
   const updateUrlSearchParams = useUrlSearchParamsStore(
     (state) => state.updateUrlSearchParams
   );
-
   const setValue = updateUrlSearchParams.bind(null, BillSearchParamsKey.MONTH);
-
   const handleValueChange: FilterSelectProps["onChange"] = (event) => {
     setValue(event.target.value);
   };
 
-  // 2. options data
   const optionsData: OptionDataItem[] = MONTHS.map((month) => ({
     description: `${month} ${MONTH_TEXT}`,
     value: month,

@@ -42,8 +42,6 @@ function YearFilterSelect() {
   }, [bill]);
 
   useEffect(() => {
-    // If there is no selected option and it has year options,
-    // set default select option.
     if (value === "" && years.length) {
       const firstOption = optionsData[0];
       setValue(firstOption.value);
