@@ -15,9 +15,7 @@ import {
   WRONG_FORMAT_TEXT,
 } from "../../constants";
 
-interface Props {}
-
-function TimeField(props: Props) {
+function TimeField() {
   const value = useBillFormStore((state) => state.fields.time);
   const setField = useBillFormStore((state) => state.setField);
 

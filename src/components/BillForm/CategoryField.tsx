@@ -6,14 +6,12 @@ import { useApiStore } from "../../store/api.store";
 import { useBillFormStore } from "../../store/billForm.store";
 import { OptionDataItem } from "../../types";
 
-interface Props {}
-
 const enabledPlaceholderItem: OptionDataItem = {
   value: "",
   description: NONE_TEXT,
 };
 
-function CategoryField(props: Props) {
+function CategoryField() {
   const value = useBillFormStore((state) => state.fields.category);
   const setField = useBillFormStore((state) => state.setField);
 

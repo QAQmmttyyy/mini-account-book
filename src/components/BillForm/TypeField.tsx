@@ -6,9 +6,7 @@ import FormControl from "@material-ui/core/FormControl";
 import { EXPENDITURE_TEXT, INCOME_TEXT } from "../../constants";
 import { useBillFormStore } from "../../store/billForm.store";
 
-interface Props {}
-
-function TypeField(props: Props) {
+function TypeField() {
   const value = useBillFormStore((state) => state.fields.type);
   const setField = useBillFormStore((state) => state.setField);
 

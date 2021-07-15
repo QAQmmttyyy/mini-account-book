@@ -1,14 +1,10 @@
 import TextField, { TextFieldProps } from "@material-ui/core/TextField";
 import React from "react";
-import CNYAmountInput, {
-  CNYAmountInputProps,
-} from "../CNYAmountInput";
+import CNYAmountInput, { CNYAmountInputProps } from "../CNYAmountInput";
 import { AMOUNT_TEXT, NOT_EMPTY_TEXT } from "../../constants";
 import { useBillFormStore } from "../../store/billForm.store";
 
-interface Props {}
-
-function AmountField(props: Props) {
+function AmountField() {
   const value = useBillFormStore((state) => state.fields.amount);
   const setField = useBillFormStore((state) => state.setField);
 
